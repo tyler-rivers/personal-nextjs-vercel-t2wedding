@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { initBackgroundAnimation } from '../lib/background-animation.js'; 
+import { initBackgroundAnimation } from '../lib/background-animation.js';
+import Image from 'next/image'
 
 const IntroSection = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -8,12 +9,13 @@ const IntroSection = () => {
 
   // Load star images from their original source files
   useEffect(() => {
+    const NativeImage = window.Image;
     const starImagePromises = [];
 
     for (let i = 1; i <= 10; i++) {
       starImagePromises.push(
         new Promise<HTMLImageElement | null>((resolve) => {
-          const img = new Image();
+          const img = new NativeImage(); // <--- Use the alias here
           img.src = `/images/stars/star_${i}.svg`;
           img.onload = () => resolve(img);
           img.onerror = () => {
@@ -42,7 +44,9 @@ const IntroSection = () => {
       <canvas ref={canvasRef} className="absolute inset-0 z-1"></canvas>
       <div className="z-10 max-w-2xl mx-auto space-y-6">
         <h1 className="w-full z-2">
-          <img
+          <Image
+            width="478"
+            height="234"
             src="/images/wedding-logo-reverse.svg"
             alt="Taylor & Tyler"
             className="w-full h-auto mx-auto max-w-[600px]"

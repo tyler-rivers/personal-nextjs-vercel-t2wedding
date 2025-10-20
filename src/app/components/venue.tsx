@@ -1,17 +1,17 @@
 "use client";
 
 import React, { useState } from 'react';
-// Corrected import path to explicitly include the file extension
-import Lightbox from './Lightbox.tsx'; 
+import Lightbox from './lightbox';
+import Image from 'next/image';
 
 // Data for the tiled image gallery using the latest URLs
 const galleryImages = [
-  'https://crescenthotelwedding.com/wp-content/uploads/2025/02/CrescentHotelSpa_9703-scaled.jpg',
-  'https://crescent-hotel.com/wp-content/uploads/2023/06/crescent-hotel-symbol-hospitality.jpg',
-  'https://crescent-hotel.com/wp-content/uploads/2023/07/crescent-hotel-restoration.jpg',
-  'https://crescenthotelwedding.com/wp-content/uploads/2025/10/W-H-Reid-Summer-House-Front-2-lg.jpg',
-  'https://crescent-hotel.com/wp-content/uploads/2023/06/treetop-cottage-room.jpg',
-  'https://crescenthotelwedding.com/wp-content/uploads/2025/02/Photo-May-13-2022-8-13-09-AM-scaled.jpg',
+  '/images/venue/CrescentHotelSpa_9703-scaled.jpg',
+  '/images/venue/crescent-hotel-symbol-hospitality.jpg',
+  '/images/venue/crescent-hotel-restoration.jpg',
+  '/images/venue/W-H-Reid-Summer-House-Front-2-lg.jpg',
+  '/images/venue/treetop-cottage-room.jpg',
+  '/images/venue/Photo-May-13-2022-8-13-09-AM-scaled.jpg',
 ];
 
 // Alt texts corresponding to the images (for the Lightbox component)
@@ -58,54 +58,96 @@ const VenueSection = () => {
   };
 
   const imageElements = [
-    // Image 1 (Large 2x2) - Index 0
-    <img 
-      key={0} 
+    // Image 1 (Large 2x2) - Index 0 (Already Correct)
+    <div 
+      key={0} // ⬅️ The key should typically be on the outermost repeating element
       onClick={() => openModal(0)} 
-      src={galleryImages[0]} 
-      alt={galleryAlts[0]} 
-      className="col-span-2 row-span-2 object-cover w-full h-full rounded-xl shadow-2xl transition duration-300 hover:scale-[1.02] cursor-pointer" 
-    />,
+      className="overflow-hidden relative col-span-2 row-span-2 rounded-xl shadow-2xl transition duration-300 hover:scale-[1.02] cursor-pointer"
+    >
+      <Image 
+        fill
+        src={galleryImages[0]} 
+        alt={galleryAlts[0]} 
+        // Use style prop for objectFit when using 'fill'
+        style={{ objectFit: 'cover' }}
+        sizes="(max-width: 768px) 50vw, 33vw"
+      />
+    </div>,
+    
     // Image 2 (Top Right 2x1) - Index 1
-    <img 
+    <div 
       key={1} 
       onClick={() => openModal(1)} 
-      src={galleryImages[1]} 
-      alt={galleryAlts[1]} 
-      className="col-span-2 row-span-1 object-cover w-full h-full rounded-xl shadow-2xl transition duration-300 hover:scale-[1.02] cursor-pointer" 
-    />,
+      className="overflow-hidden relative col-span-2 row-span-1 rounded-xl shadow-2xl transition duration-300 hover:scale-[1.02] cursor-pointer"
+    >
+      <Image 
+        fill
+        src={galleryImages[1]} 
+        alt={galleryAlts[1]} 
+        style={{ objectFit: 'cover' }}
+        sizes="(max-width: 768px) 50vw, 33vw"
+      />
+    </div>,
+    
     // Image 3 (Middle Right 1x1) - Index 2
-    <img 
+    <div 
       key={2} 
       onClick={() => openModal(2)} 
-      src={galleryImages[2]} 
-      alt={galleryAlts[2]} 
-      className="col-span-1 row-span-1 object-cover w-full h-full rounded-xl shadow-2xl transition duration-300 hover:scale-[1.02] cursor-pointer" 
-    />,
+      className="overflow-hidden relative col-span-1 row-span-1 rounded-xl shadow-2xl transition duration-300 hover:scale-[1.02] cursor-pointer"
+    >
+      <Image 
+        fill
+        src={galleryImages[2]} 
+        alt={galleryAlts[2]} 
+        style={{ objectFit: 'cover' }}
+        sizes="(max-width: 768px) 33vw, 16.5vw"
+      />
+    </div>,
+    
     // Image 4 (Middle Right 1x1) - Index 3
-    <img 
+    <div 
       key={3} 
       onClick={() => openModal(3)} 
-      src={galleryImages[3]} 
-      alt={galleryAlts[3]} 
-      className="col-span-1 row-span-1 object-cover w-full h-full rounded-xl shadow-2xl transition duration-300 hover:scale-[1.02] cursor-pointer" 
-    />,
+      className="overflow-hidden relative col-span-1 row-span-1 rounded-xl shadow-2xl transition duration-300 hover:scale-[1.02] cursor-pointer"
+    >
+      <Image 
+        fill
+        src={galleryImages[3]} 
+        alt={galleryAlts[3]} 
+        style={{ objectFit: 'cover' }}
+        sizes="(max-width: 768px) 33vw, 16.5vw"
+      />
+    </div>,
+    
     // Image 5 (Bottom 2x1) - Index 4
-    <img 
+    <div 
       key={4} 
       onClick={() => openModal(4)} 
-      src={galleryImages[4]} 
-      alt={galleryAlts[4]} 
-      className="col-span-2 row-span-1 object-cover w-full h-full rounded-xl shadow-2xl transition duration-300 hover:scale-[1.02] cursor-pointer" 
-    />,
+      className="overflow-hidden relative col-span-2 row-span-1 rounded-xl shadow-2xl transition duration-300 hover:scale-[1.02] cursor-pointer"
+    >
+      <Image 
+        fill
+        src={galleryImages[4]} 
+        alt={galleryAlts[4]} 
+        style={{ objectFit: 'cover' }}
+        sizes="(max-width: 768px) 50vw, 33vw"
+      />
+    </div>,
+    
     // Image 6 (Bottom 2x1) - Index 5
-    <img 
+    <div 
       key={5} 
       onClick={() => openModal(5)} 
-      src={galleryImages[5]} 
-      alt={galleryAlts[5]} 
-      className="col-span-2 row-span-1 object-cover w-full h-full rounded-xl shadow-2xl transition duration-300 hover:scale-[1.02] cursor-pointer" 
-    />,
+      className="overflow-hidden relative col-span-2 row-span-1 rounded-xl shadow-2xl transition duration-300 hover:scale-[1.02] cursor-pointer"
+    >
+      <Image 
+        fill
+        src={galleryImages[5]} 
+        alt={galleryAlts[5]} 
+        style={{ objectFit: 'cover' }}
+        sizes="(max-width: 768px) 50vw, 33vw"
+      />
+    </div>,
   ];
 
   return (
@@ -117,11 +159,15 @@ const VenueSection = () => {
             {/* First Row: Text and Gallery */}
             <div className="grid lg:grid-cols-2 gap-12 items-start mb-16">
               <div className="space-y-6 text-lg">
-                <img
-                  src="/images/crescent-hotel-logo-white.png"
-                  alt="Crescent Hotel Logo"
-                  className="h-16 w-auto rounded"
-                />
+                <div className="w-auto relative">
+                  <Image
+                    width="84"
+                    height="191"
+                    src="/images/crescent-hotel-logo-white.png"
+                    alt="Crescent Hotel Logo"
+                    className=""
+                  />
+                </div>
                 <h3 className="text-3xl font-bold font-serif text-[#f2df93]">The Crescent Hotel</h3>
                 <p className="leading-relaxed">
                   Perched high above the Victorian Village of Eureka Springs, Arkansas is the Crescent Hotel & Spa, a palatial structure and resort hotel known widely in the Ozark Mountains as the “symbol of hospitality” for the State of Arkansas and brought to life year round.
@@ -161,7 +207,7 @@ const VenueSection = () => {
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
-                allowFullScreen=""
+                allowFullScreen={false}
                 loading="lazy"
               ></iframe>
             </div>

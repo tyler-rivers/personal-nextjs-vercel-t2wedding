@@ -1,19 +1,14 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 
 interface LightboxProps {
-  // Flag to determine if the modal is visible
   isOpen: boolean;
-  // URL of the image to display
   imageUrl: string;
-  // Alt text for accessibility
   imageAlt: string;
-  // Function to close the modal
   closeModal: () => void;
-  // Function to navigate to the next image
   nextImage: () => void;
-  // Function to navigate to the previous image
   prevImage: () => void;
 }
 
@@ -25,12 +20,13 @@ const Lightbox: React.FC<LightboxProps> = ({
   nextImage, 
   prevImage 
 }) => {
-  if (!isOpen) {
-    return null;
-  }
-
   // Effect to handle keyboard controls (Escape, Left/Right arrows)
   React.useEffect(() => {
+    // Only set up the event listener if the modal is open
+    if (!isOpen) {
+      return; // Skip setting up the listener if closed
+    }
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         closeModal();
@@ -42,17 +38,25 @@ const Lightbox: React.FC<LightboxProps> = ({
     };
 
     window.addEventListener('keydown', handleKeyDown);
+    
+    // Cleanup function to remove the listener when the modal closes or component unmounts
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [closeModal, nextImage, prevImage]);
+    
+    // Include all state/prop dependencies, including isOpen, in the dependency array
+  }, [isOpen, closeModal, nextImage, prevImage]);
+
+  // The conditional return is now safe because the hook was called unconditionally above.
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <div 
       className="fixed inset-0 z-50 bg-black bg-opacity-95 flex items-center justify-center p-4 transition-opacity duration-300"
       onClick={closeModal} // Close when clicking the backdrop
     >
-      {/* Close Button */}
       <button
         onClick={closeModal}
         className="absolute top-4 right-4 text-white text-4xl p-2 rounded-full bg-black bg-opacity-50 hover:bg-opacity-70 transition z-50"
@@ -60,8 +64,6 @@ const Lightbox: React.FC<LightboxProps> = ({
       >
         &times;
       </button>
-
-      {/* Previous Button */}
       <button
         onClick={(e) => { e.stopPropagation(); prevImage(); }}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-5xl p-4 rounded-full bg-black bg-opacity-50 hover:bg-opacity-70 transition z-50"
@@ -70,19 +72,21 @@ const Lightbox: React.FC<LightboxProps> = ({
         &#10094;
       </button>
 
-      {/* Image Container */}
       <div 
-        className="max-w-full max-h-full flex justify-center items-center"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image
+        className="relative max-w-full max-h-full h-full w-full flex justify-center items-center" 
+        onClick={(e) => e.stopPropagation()} 
       >
-        <img 
+        <Image 
+          fill 
+          style={{ objectFit: 'contain' }}
           src={imageUrl} 
           alt={imageAlt} 
-          className="max-w-full max-h-screen object-contain rounded-lg shadow-2xl"
+          priority={true}
+          className="rounded-lg shadow-2xl" 
+          sizes="(max-width: 1200px) 100vw, 1200px"
         />
       </div>
 
-      {/* Next Button */}
       <button
         onClick={(e) => { e.stopPropagation(); nextImage(); }}
         className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-5xl p-4 rounded-full bg-black bg-opacity-50 hover:bg-opacity-70 transition z-50"

@@ -1,18 +1,19 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import FadeInOnScroll from './components/FadeInOnScroll';
-import IntroSection from './components/IntroSection';
-import FormSection from './components/FormSection';
-import VenueSection from './components/VenueSection';
-import TownSection from './components/TownSection';
-import TimelineSection from './components/TimelineSection';
-import RegistrySection from './components/RegistrySection';
-import FooterSection from './components/FooterSection';
+import IntroSection from './components/intro';
+// import FormSection from './components/rsvpForm';
+import SimpleContactForm from './components/saveDateForm';
+import VenueSection from './components/venue';
+import TownSection from './components/town';
+import TimelineSection from './components/timeline';
+import RegistrySection from './components/registry';
+import FooterSection from './components/footer';
 
 const Page = () => {
-  const [selectedGuest, setSelectedGuest] = useState<Guest | null>(null);
-  const [rsvpForm, setRsvpForm] = useState<RsvpFormType>({});
+  // const [selectedGuest, setSelectedGuest] = useState<Guest | null>(null);
+  // const [rsvpForm, setRsvpForm] = useState<RsvpFormType>({});
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   return (
@@ -55,7 +56,7 @@ const Page = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-gray-900 p-6 rounded-xl shadow-lg text-center max-w-sm">
             <h3 className="text-xl font-bold font-horley mb-4 text-[#f2df93ff]">Thank you!</h3>
-            <p className="mb-6">Your RSVP has been submitted. We can't wait to celebrate with you!</p>
+            <p className="mb-6">Your RSVP has been submitted. We can&apos;t wait to celebrate with you!</p>
             <button
               onClick={() => setIsAlertVisible(false)}
               className="bg-indigo-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-indigo-700 transition duration-300"
@@ -71,7 +72,7 @@ const Page = () => {
       </FadeInOnScroll>
 
       <main className="container mx-auto p-6 md:p-12 space-y-16 z-2">
-        <FadeInOnScroll>
+        {/* <FadeInOnScroll>
           <FormSection
             selectedGuest={selectedGuest}
             setSelectedGuest={setSelectedGuest}
@@ -79,6 +80,9 @@ const Page = () => {
             setRsvpForm={setRsvpForm}
             setIsAlertVisible={setIsAlertVisible}
           />
+        </FadeInOnScroll> */}
+        <FadeInOnScroll>
+          <SimpleContactForm />
         </FadeInOnScroll>
         <FadeInOnScroll>
           <VenueSection />

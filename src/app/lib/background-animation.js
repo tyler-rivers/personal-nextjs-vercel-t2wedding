@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-
 export const initBackgroundAnimation = (canvas, starImages) => {
   const ctx = canvas.getContext("2d");
   if (!ctx) return () => {};
