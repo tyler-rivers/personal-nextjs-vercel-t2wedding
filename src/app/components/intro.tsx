@@ -42,8 +42,8 @@ const IntroSection = () => {
   return (
     <section className="relative h-screen flex flex-col items-center justify-center text-center bg-[#121a2eff] text-[#f7fbfc] p-4 z-1 overflow-hidden background-gradient">
       <canvas ref={canvasRef} className="absolute inset-0 z-1"></canvas>
-      <div className="z-10 max-w-2xl mx-auto space-y-6">
-        <h1 className="w-full z-2">
+      <div className="intro-content-container z-10 max-w-2xl mx-auto space-y-6">
+        <h1 className="relative w-full z-2">
           <Image
             width="478"
             height="234"
@@ -52,13 +52,13 @@ const IntroSection = () => {
             className="w-full h-auto mx-auto max-w-[600px]"
           />
         </h1>
-        <p className="text-lg font-light z-2">Please join us in celebrating the marriage of</p>
-        <p className="text-xl font-light z-2">
+        <p className="relative text-lg font-light z-2">Please join us in celebrating the marriage of</p>
+        <p className="relative text-xl font-light z-2">
           Taylor Nicole Phillips &<br />
           Tyler Andrew Rivers
         </p>
-        <p className="text-lg font-light z-2">on November 6<sup>th</sup>, 2025</p>
-        <a href="#rsvp" className="text-2xl bg-white text-gray-900 font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 z-2">RSVP</a>
+        <p className="relative text-lg font-light z-2">on November 6<sup>th</sup>, 2025</p>
+        <a href="#rsvp" className="relative text-2xl bg-white text-gray-900 font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-gray-300 transition duration-300 z-2 inline-flex items-center">RSVP</a>
       </div>
     </section>
   );

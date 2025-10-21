@@ -1,28 +1,12 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+const nextConfig = {
+  output: 'export',
   images: {
-    // Allow remote images
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'crescenthotelwedding.com',
-        port: '',
-        pathname: '/wp-content/uploads/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'crescent-hotel.com',
-        port: '',
-        pathname: '/wp-content/uploads/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'duckduckgo.com',
-        port: '',
-        pathname: '/wp-content/uploads/**',
-      }
-    ],
+    // This setting tells the next/image component to skip all built-in
+    // image optimization features and serve the images as-is, which is
+    // required for purely static deployments.
+    unoptimized: true, 
   },
 };
 

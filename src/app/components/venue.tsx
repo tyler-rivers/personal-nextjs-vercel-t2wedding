@@ -68,7 +68,6 @@ const VenueSection = () => {
         fill
         src={galleryImages[0]} 
         alt={galleryAlts[0]} 
-        // Use style prop for objectFit when using 'fill'
         style={{ objectFit: 'cover' }}
         sizes="(max-width: 768px) 50vw, 33vw"
       />
@@ -153,7 +152,7 @@ const VenueSection = () => {
   return (
     <>
       <section id="venue" className="">
-        <div className="max-w-7xl mx-auto">
+        <div className="mx-auto">
             <h2 className="text-4xl font-extrabold text-center mb-12 font-serif text-[#f2df93]">The Venue</h2>
             
             {/* First Row: Text and Gallery */}
@@ -173,7 +172,7 @@ const VenueSection = () => {
                   Perched high above the Victorian Village of Eureka Springs, Arkansas is the Crescent Hotel & Spa, a palatial structure and resort hotel known widely in the Ozark Mountains as the “symbol of hospitality” for the State of Arkansas and brought to life year round.
                 </p>
                 <p className="leading-relaxed">
-                  The Crescent hotel is beautiful, romantic, full of personality, and purportedly **haunted**! The hotel offers regular ghost tours, and has been consistently patrolled by a series of cats named Morris, who make sure to keep the spirits in line.
+                  The Crescent hotel is beautiful, romantic, full of personality, and purportedly <strong>haunted</strong>! The hotel offers regular ghost tours, and has been consistently patrolled by a series of cats named Morris, who make sure to keep the spirits in line.
                 </p>
                 <p className="leading-relaxed">
                   Please feel free to stay at the Crescent during your trip to Eureka Springs to celebrate with us, but other hotels are available as well.
@@ -194,7 +193,7 @@ const VenueSection = () => {
               </div>
 
               {/* Tiled Gallery with click handlers */}
-              <div className="grid grid-cols-4 grid-rows-3 gap-3 h-[30rem] lg:h-full aspect-square lg:aspect-auto">
+              <div className="grid lg:grid-cols-4 lg:grid-rows-3 gap-3 h-[60rem] lg:h-full lg:aspect-square lg:aspect-auto">
                 {imageElements}
               </div>
             </div>

@@ -49,6 +49,23 @@ const Page = () => {
           opacity: 25%;
           z-index: 0;
         }
+        .intro-content-container {
+          position: relative;
+          z-index: 1;
+        }
+        .intro-content-container::after {
+          content: '';
+          position: absolute;
+          top: -24px;
+          left: -24px;
+          border-radius: 8px;
+          background-color: #121a2eff;
+          z-index: 1;
+          width: calc(100% + 48px);
+          height: calc(100% + 48px);
+          opacity: .75;
+          filter: blur(1.5rem);
+        }
       `}</style>
 
       {/* Custom Alert Message Box */}

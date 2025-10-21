@@ -9,9 +9,10 @@ interface HCaptchaApi {
     remove: (widgetId: string | number) => void;
 }
 
-// --- HCaptcha Configuration & Component (Copied from source for self-containment) ---
-const HCAPTCHA_SITEKEY = "e704814c-d75c-4cfe-93ca-135a3380318c"; // IMPORTANT: Replace with your actual site key
+// --- HCaptcha Configuration & Component ---
+const HCAPTCHA_SITEKEY = "e704814c-d75c-4cfe-93ca-135a3380318c";
 const HCAPTCHA_SCRIPT_URL = "https://js.hcaptcha.com/1/api.js";
+const API_ROUTE_URL = '/api/notify-submission';
 
 interface HCaptchaProps {
     onVerify: (token: string) => void;
@@ -27,15 +28,12 @@ declare global {
 
 const HCaptchaComponent: React.FC<HCaptchaProps> = ({ onVerify, onError }) => {
     const captchaRef = useRef<HTMLDivElement>(null);
-    // Ref to store the ID returned by hcaptcha.render()
     const widgetIdRef = useRef<string | number | null>(null);
 
-    // Effect to handle script loading and widget initialization
     useEffect(() => {
         let script: HTMLScriptElement | null = null;
         
         const initializeCaptcha = () => {
-            // Safely access the typed API
             const hcaptchaApi = window.hcaptcha;
 
             if (captchaRef.current && hcaptchaApi) {
@@ -52,7 +50,6 @@ const HCaptchaComponent: React.FC<HCaptchaProps> = ({ onVerify, onError }) => {
             }
         };
 
-        // If the script isn't loaded, load it
         if (typeof window.hcaptcha === 'undefined') {
             script = document.createElement('script');
             script.src = HCAPTCHA_SCRIPT_URL;
@@ -61,13 +58,10 @@ const HCaptchaComponent: React.FC<HCaptchaProps> = ({ onVerify, onError }) => {
             script.onload = initializeCaptcha;
             document.head.appendChild(script);
         } else {
-            // If it's already loaded, initialize immediately
             initializeCaptcha();
         }
 
-        // Cleanup function for hCaptcha widget and script
         return () => {
-            // Safely access the typed API
             const hcaptchaApi = window.hcaptcha;
 
             if (widgetIdRef.current !== null && hcaptchaApi && hcaptchaApi.remove) {
@@ -127,12 +121,10 @@ const SimpleContactForm: React.FC = () => {
         e.preventDefault();
         setSubmitStatus('idle'); // Reset status
         
-        // Safely access the typed API
         const hcaptchaApi = window.hcaptcha;
 
         if (!captchaToken) {
             setCaptchaError("Please complete the security check before submitting.");
-             // Attempt to reset the captcha to force a new check
             if (hcaptchaApi && hcaptchaApi.reset) {
                 hcaptchaApi.reset();
             }
@@ -142,46 +134,57 @@ const SimpleContactForm: React.FC = () => {
         setIsSubmitting(true);
         setCaptchaError(null);
 
-        // --- Simulated Submission Logic ---
-        console.log("Submitting Simple Form:", { name, email, captchaToken });
-        
         try {
-            // Replace this with your actual API call to submit the name/email
-            await new Promise(resolve => setTimeout(resolve, 1500)); 
+            // --- ACTUAL API CALL FOR SUBMISSION ---
+            const response = await fetch(API_ROUTE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // Send the form data AND the captcha token to the server
+                body: JSON.stringify({ name, email, captchaToken }),
+            });
             
-            // Success Logic
-            console.log("Form successfully submitted.");
-            setSubmitStatus('success');
-            setName('');
-            setEmail('');
-            setCaptchaToken(null);
-            
-            // Manually reset hCaptcha widget after successful submission
-            if (hcaptchaApi && hcaptchaApi.reset) {
-                hcaptchaApi.reset();
+            if (response.ok) {
+                // Success Logic
+                console.log("Form successfully submitted.");
+                setSubmitStatus('success');
+                setName('');
+                setEmail('');
+                setCaptchaToken(null);
+                
+                // Manually reset hCaptcha widget after successful submission
+                if (hcaptchaApi && hcaptchaApi.reset) {
+                    hcaptchaApi.reset();
+                }
+
+            } else {
+                // Error Logic (e.g., hCaptcha failed verification on server)
+                console.error("Submission failed on server.");
+                setSubmitStatus('error');
             }
 
         } catch (error) {
-            console.error("Submission failed:", error);
+            console.error("Network or submission failure:", error);
             setSubmitStatus('error');
-            // Reset captcha on error submission to force re-verification
-            if (hcaptchaApi && hcaptchaApi.reset) {
-                hcaptchaApi.reset();
-            }
         } finally {
             setIsSubmitting(false);
+             // Reset captcha on network/server error to force re-verification
+            if (submitStatus === 'error' && hcaptchaApi && hcaptchaApi.reset) {
+                hcaptchaApi.reset();
+            }
         }
     };
 
     return (
         <section id="rsvp" className="py-12">
-            <h2 className="text-3xl font-bold text-center mb-8 font-horley text-[#f2df93ff]">
-                Save the Date!
+            <h2 className="text-3xl font-bold text-center mb-8 font-serif text-[#f2df93]">
+                Stay Updated!
             </h2>
             <p className="text-center text-gray-300 max-w-2xl mx-auto mb-12">
-              We are currently working with our venue on the dinner menu, so we can&apos;t collect a full RSVP just yet! Please enter your name and email below, and we will send you an email to let you know to return to the site and RSVP.
+              We are currently finalizing details, so we can&apos;t collect a full RSVP just yet! Please enter your name and email below, and we will send you an email notification when the full RSVP page is ready.
             </p>
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-6 bg-gray-900 p-8 rounded-xl shadow-2xl border border-gray-700">
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-6 bg-gray-900/80 p-8 rounded-xl shadow-2xl border border-gray-700">
                 
                 {/* Status Messages */}
                 {submitStatus === 'success' && (
@@ -205,7 +208,7 @@ const SimpleContactForm: React.FC = () => {
                         onChange={handleNameChange}
                         placeholder="Your full name"
                         required
-                        className="w-full p-3 border border-gray-700 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-gray-800 text-[#f7fbfc] placeholder:text-gray-500 shadow-inner"
+                        className="w-full p-3 border border-gray-700 rounded-md focus:ring-[#f2df93] focus:border-[#f2df93] bg-gray-800 text-[#f7fbfc] placeholder:text-gray-500 shadow-inner"
                     />
                 </div>
 
@@ -219,7 +222,7 @@ const SimpleContactForm: React.FC = () => {
                         onChange={handleEmailChange}
                         placeholder="you@example.com"
                         required
-                        className="w-full p-3 border border-gray-700 rounded-md focus:ring-indigo-500 focus:border-indigo-500 bg-gray-800 text-[#f7fbfc] placeholder:text-gray-500 shadow-inner"
+                        className="w-full p-3 border border-gray-700 rounded-md focus:ring-[#f2df93] focus:border-[#f2df93] bg-gray-800 text-[#f7fbfc] placeholder:text-gray-500 shadow-inner"
                     />
                 </div>
 
@@ -243,7 +246,7 @@ const SimpleContactForm: React.FC = () => {
                 {/* Submit Button */}
                 <button 
                     type="submit" 
-                    className={`w-full font-semibold py-3 px-4 rounded-md transition duration-300 shadow-md ${captchaToken && !isSubmitting ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-gray-700 text-gray-400 cursor-not-allowed'}`} 
+                    className={`w-full font-semibold py-3 px-4 rounded-md transition duration-300 shadow-lg ${captchaToken && !isSubmitting ? 'bg-[#f2df93] text-gray-900 hover:bg-[#e6c871]' : 'bg-gray-700 text-gray-400 cursor-not-allowed'}`} 
                     disabled={!captchaToken || isSubmitting}
                 >
                     {isSubmitting ? 'Sending...' : 'Submit Information'}

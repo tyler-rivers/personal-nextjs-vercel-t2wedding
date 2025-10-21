@@ -97,7 +97,7 @@ const attractionsData: CardItem[] = [
 
 const restaurantData: CardItem[] = [
   {
-    title: 'Bombadill&apos;s Cafe',
+    title: 'Bombadil\'s Cafe',
     description: 'A local food truck specialized in comfort food using local ingredients. Includes something for everyone, including the vegans/vegetarians in your life!',
     imgUrl: '/images/restaurants/bombadils-cafe.webp',
     link: 'https://www.bombadilscafe.com/',

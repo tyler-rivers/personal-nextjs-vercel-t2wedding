@@ -14,13 +14,13 @@ const TimelineSection = () => {
     {
       time: 'Ceremony',
       title: 'Ceremony',
-      description: 'An intimate private ceremony will be held at Lovers&apos; Leap - if you don&apos;t hear from us, you get to skip this and show up at the party at 6:00pm!',
+      description: 'An intimate private ceremony will be held at Lovers\' Leap - if you don\'t hear from us, you get to skip this and show up at the party at 6:00pm!',
     },
     // ... rest of events
     {
       time: '6:00 PM',
       title: 'Cocktail Hour',
-      description: 'Enjoy refreshing cocktails and light hors d&apos;oeuvres while the wedding party arrives from the ceremony site. This is a great time to mingle and get to know other guests!',
+      description: 'Enjoy refreshing cocktails and light hors d\'oeuvres while the wedding party arrives from the ceremony site. This is a great time to mingle and get to know other guests!',
     },
     {
       time: '6:30 PM',
@@ -118,7 +118,7 @@ const TimelineSection = () => {
             <div key={index} className="mb-4">
               <div
                 className="flex items-center space-x-4 cursor-pointer p-4 bg-gray-800 border border-gray-700 rounded-lg shadow-md hover:bg-gray-700 transition duration-300"
-                onClick={() => toggleDrawer(index)} // ⬅️ Call the original handler
+                onClick={() => toggleDrawer(index)}
               >
                 <span className="text-xl font-bold text-[#f2df93ff] flex-shrink-0">{event.time}</span>
                 <svg className="w-5 h-5 text-[#f2df93ff]" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
