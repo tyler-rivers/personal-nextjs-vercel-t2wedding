@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 // --- Configuration: Variables are securely pulled from Vercel Environment Variables ---
-const HCAPTCHA_SECRET = process.env.HCAPTCHA_SECRET_KEY;
+const HCAPTCHA_SECRET = process.env.HCAPTCHA_SECRET;
 const SENDER_EMAIL = process.env.SENDER_EMAIL;
 const SENDER_PASSWORD = process.env.SENDER_PASSWORD; 
 const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL;
