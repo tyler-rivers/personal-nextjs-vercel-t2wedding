@@ -66,6 +66,21 @@ const Page = () => {
           opacity: .75;
           filter: blur(1.5rem);
         }
+        .border-celestial {
+          border-width: 2px;
+          border-color: #f2df93;
+          outline: 1px solid white;
+          outline-offset: -7px;
+          position: relative;
+        }
+        .top-star::after {
+          content: url('../images/stars/star_cards.svg');
+          object-fit: contain;
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+        }
       `}</style>
 
       {/* Custom Alert Message Box */}

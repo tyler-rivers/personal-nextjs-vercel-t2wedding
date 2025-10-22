@@ -51,9 +51,9 @@ const TimelineSection = () => {
       description: 'The \"wedding party\" will gather at RESTAURANT for dinner.',
     },
     {
-      time: '11/4 - 8pm',
+      time: '11/5 - TBD',
       title: 'Crescent Ghost Tour',
-      description: 'In Eureka Springs early for some R&amp;R? Come get spooked with us at the Crescent Hotel at 8pm for their famous ghost tour!',
+      description: 'In Eureka Springs early for some R&R? Come get spooked with us at the Crescent Hotel at 8pm for their famous ghost tour!',
     }
   ];
 
@@ -88,9 +88,12 @@ const TimelineSection = () => {
                 onClick={() => togglePreDrawer(index)} // ⬅️ Call the new handler
               >
                 <span className="text-xl font-bold text-[#f2df93ff] flex-shrink-0">{event.time}</span>
-                <svg className="w-5 h-5 text-[#f2df93ff]" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fill="currentColor" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.96a1 1 0 00.95.69h4.167c.969 0 1.371 1.24.588 1.81l-3.37 2.45c-.412.3-.598.831-.225 1.348l1.286 3.96c.3.921-.755 1.688-1.54 1.118l-3.37-2.45a1 1 0 00-1.176 0l-3.37 2.45c-.784.57-1.838-.197-1.54-1.118l1.286-3.96c.373-.517.187-1.048-.225-1.348l-3.37-2.45c-.783-.57-.381-1.81.588-1.81h4.167a1 1 0 00.95-.69l1.286-3.96z" />
-                </svg>
+                <img 
+                  src={'../images/stars/star_2.svg'} 
+                  alt="A small star" 
+                  style={{ objectFit: 'cover' }}
+                  className=""
+                />
                 <h3 className="text-xl font-semibold text-gray-200 flex-grow">{event.title}</h3>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 transform transition-transform duration-300 text-white ${openPreEventIndex === index ? 'rotate-180' : ''}`}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
@@ -121,9 +124,12 @@ const TimelineSection = () => {
                 onClick={() => toggleDrawer(index)}
               >
                 <span className="text-xl font-bold text-[#f2df93ff] flex-shrink-0">{event.time}</span>
-                <svg className="w-5 h-5 text-[#f2df93ff]" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fill="currentColor" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.96a1 1 0 00.95.69h4.167c.969 0 1.371 1.24.588 1.81l-3.37 2.45c-.412.3-.598.831-.225 1.348l1.286 3.96c.3.921-.755 1.688-1.54 1.118l-3.37-2.45a1 1 0 00-1.176 0l-3.37 2.45c-.784.57-1.838-.197-1.54-1.118l1.286-3.96c.373-.517.187-1.048-.225-1.348l-3.37-2.45c-.783-.57-.381-1.81.588-1.81h4.167a1 1 0 00.95-.69l1.286-3.96z" />
-                </svg>
+                <img 
+                  src={'../images/stars/star_2.svg'} 
+                  alt="A small star" 
+                  style={{ objectFit: 'cover' }}
+                  className=""
+                />
                 <h3 className="text-xl font-semibold text-gray-200 flex-grow">{event.title}</h3>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 transform transition-transform duration-300 text-white ${openEventIndex === index ? 'rotate-180' : ''}`}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />

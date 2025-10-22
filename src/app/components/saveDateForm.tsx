@@ -179,17 +179,17 @@ const SimpleContactForm: React.FC = () => {
     return (
         <section id="rsvp" className="py-12">
             <h2 className="text-3xl font-bold text-center mb-8 font-serif text-[#f2df93]">
-                Stay Updated!
+                Save the Date!
             </h2>
             <p className="text-center text-gray-300 max-w-2xl mx-auto mb-12">
-              We are currently finalizing details, so we can&apos;t collect a full RSVP just yet! Please enter your name and email below, and we will send you an email notification when the full RSVP page is ready.
+              We are currently finalizing our menu with the venue chef, so we can&apos;t collect a full RSVP just yet! Please enter your name and email below, and we will send you an email notification when the full RSVP process is ready.
             </p>
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-6 bg-gray-900/80 p-8 rounded-xl shadow-2xl border border-gray-700">
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-6 bg-gray-900/80 p-8 shadow-2xl border border-[#f2df93] border-celestial top-star">
                 
                 {/* Status Messages */}
                 {submitStatus === 'success' && (
                     <div className="bg-green-600/20 text-green-400 p-3 rounded-md border border-green-700 text-center font-medium">
-                        Thank you! We&apos;ve received your information.
+                        Thank you! We&apos;ve received your contact info and will email you when you can formally RSVP!
                     </div>
                 )}
                 {submitStatus === 'error' && (

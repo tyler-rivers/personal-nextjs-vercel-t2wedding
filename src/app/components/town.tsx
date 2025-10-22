@@ -109,7 +109,7 @@ const restaurantData: CardItem[] = [
   },
   {
     title: 'Three Birds Cafe',
-    description: 'Using only the best ingredients and adding a lot of LOVE and PASSION for the culinary arts, Three Bird Cafe is a creative labor of love for Chef Jennifer & Rayna McDermott and their little birdie, Emmie!',
+    description: 'Using only the best ingredients and adding a lot of LOVE and PASSION for the culinary arts, Three Bird Cafe is a creative labor of love for Chef Jennifer & Rayna McDermott and their little birdie, Emmie! A really wonderful spot for brunch.',
     imgUrl: '/images/restaurants/three-birds-cafe.jpg',
     link: 'https://www.threebirdcafe.com/',
     tags: [
@@ -119,7 +119,7 @@ const restaurantData: CardItem[] = [
   },
   {
     title: 'Local Flavor Cafe',
-    description: 'Enjoy a quaint and eclectic dining experience in the heart of Historic Downtown Eureka Springs, Arkansas. Local Flavor Café offers fresh and creative dishes for Lunch, Dinner and Sunday Brunch. Delightful dining in a warm, friendly environment rich with art...',
+    description: 'Enjoy a quaint and eclectic dining experience in the heart of Historic Downtown Eureka Springs, Arkansas. Local Flavor Café offers fresh and creative dishes for Lunch, Dinner and Sunday Brunch.',
     imgUrl: '/images/restaurants/local-flavor-cafe.jpg',
     link: 'https://localflavorcafe.net/',
     tags: [
@@ -136,7 +136,7 @@ const TownSection = () => {
       href={item.link} 
       target="_blank" 
       rel="noopener noreferrer" 
-      className="block bg-gray-900 rounded shadow-md overflow-hidden transform hover:scale-[1.03] transition duration-300 group"
+      className="flex flex-col h-full bg-gray-900 shadow-m transform hover:scale-[1.03] transition duration-300 group"
     >
       <div className="relative w-full h-48 overflow-hidden">
         <Image 
@@ -148,7 +148,7 @@ const TownSection = () => {
         />
       </div>
 
-      <div className="p-6">
+      <div className="p-6 border-celestial flex-1 h-full">
         <h4 className="text-xl font-bold mb-1 font-horley text-[#f2df93ff] group-hover:underline">{item.title}</h4>
         
         {/* Tags Section */}
@@ -171,11 +171,11 @@ const TownSection = () => {
   return (
     <section id="town" className="">
       <h2 className="text-3xl font-bold text-center mb-8 font-horley text-[#f2df93ff]">Eureka Springs, Arkansas</h2>
-      <p className="text-center text-gray-300 max-w-2xl mx-auto mb-12">
+      <p className="text-center text-gray-300 max-w-2xl mx-auto mb-6">
         Anyone who hasn&apos;t visited the &lsquo;Switzerland of the Ozarks&lsquo; is in for a treat. We fell in love with Eureka springs for its size (population 2,166), rolling hills and historic Victorian-style buildings.
       </p>
-      <p className="text-center text-gray-300 max-w-2xl mx-auto mb-12">It&apos;s a beautiful place that we think has the same kind of romance that we want to build our lives on.</p>
-      <p className="text-center text-gray-300 max-w-2xl mx-auto mb-12">We&apos;ve listed some lodging options below, beyond just the Crescent, as well as some attractions. We can&apos;t wait to spend time with our loved ones, in such a charming little town.</p>
+      <p className="text-center text-gray-300 max-w-2xl mx-auto mb-6">It&apos;s a beautiful place that we think has the same kind of romance that we want to reflect in our relationship.</p>
+      <p className="text-center text-gray-300 max-w-2xl mx-auto mb-12">We&apos;ve listed some lodging options below, beyond just the Crescent, as well as some attractions. We can&apos;t wait to spend time with our loved ones in such a charming little town.</p>
 
       <h3 className="text-2xl font-bold mb-6 text-center font-horley text-[#f2df93ff]">Recommended Lodging</h3>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
