@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig = {
-  output: 'export',
   images: {
     // This setting tells the next/image component to skip all built-in
     // image optimization features and serve the images as-is, which is
