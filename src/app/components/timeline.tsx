@@ -2,6 +2,13 @@
 
 import React, { useState } from 'react';
 
+// Helper function to cycle through star images from star_1.svg to star_10.svg
+const getStarImagePath = (index: number): string => {
+  const starNumber = (index % 9) + 1;
+  return `../images/stars/star_${starNumber}.svg`;
+};
+
+
 const TimelineSection = () => {
   const [openEventIndex, setOpenEventIndex] = useState<number | null>(0);
   const [openPreEventIndex, setOpenPreEventIndex] = useState<number | null>(0);
@@ -75,14 +82,14 @@ const TimelineSection = () => {
             <div key={index} className="mb-4">
               <div
                 className="flex items-center space-x-4 cursor-pointer p-4 bg-gray-800 border border-gray-700 rounded-lg shadow-md hover:bg-gray-700 transition duration-300"
-                onClick={() => togglePreDrawer(index)} // ⬅️ Call the new handler
+                onClick={() => togglePreDrawer(index)}
               >
                 <span className="text-xl font-bold text-[#f2df93ff] flex-shrink-0">{event.time}</span>
                 <img 
-                  src={'../images/stars/star_2.svg'} 
+                  src={getStarImagePath(index)}
                   alt="A small star" 
                   style={{ objectFit: 'cover' }}
-                  className=""
+                  className="w-3 h-auto"
                 />
                 <h3 className="text-xl font-semibold text-gray-200 flex-grow">{event.title}</h3>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 transform transition-transform duration-300 text-white ${openPreEventIndex === index ? 'rotate-180' : ''}`}>
@@ -115,10 +122,10 @@ const TimelineSection = () => {
               >
                 <span className="text-xl font-bold text-[#f2df93ff] flex-shrink-0">{event.time}</span>
                 <img 
-                  src={'../images/stars/star_2.svg'} 
+                  src={getStarImagePath(index)}
                   alt="A small star" 
                   style={{ objectFit: 'cover' }}
-                  className=""
+                  className="w-3 h-auto"
                 />
                 <h3 className="text-xl font-semibold text-gray-200 flex-grow">{event.title}</h3>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 transform transition-transform duration-300 text-white ${openEventIndex === index ? 'rotate-180' : ''}`}>

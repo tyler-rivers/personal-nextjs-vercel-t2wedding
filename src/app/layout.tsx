@@ -13,11 +13,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Taylor & Tyler's 2026 Wedding",
+  title: "Taylor & Tyler's Wedding 2026",
   description: "The wedding website for Taylor Phillips and Tyler Rivers, to be married on November 6 2026.", // This sets the <meta name="description"> tag
   icons: '/favicon.ico', 
   robots: 'noindex, nofollow',
-  // openGraph: { title: '...', description: '...' }
+  openGraph: {
+    type: "website",
+    url: "https://t2wedding.com",
+    title: "Taylor & Tyler's Wedding Website",
+    description: "A website to celebrate the wedding of Taylor Phillips and Tyler Rivers.",
+    siteName: "Taylor & Tyler's Wedding 2026",
+    images: [{ url: "../images/wedding_open_graph.webp" }]
+  }
 };
 
 export default function RootLayout({
