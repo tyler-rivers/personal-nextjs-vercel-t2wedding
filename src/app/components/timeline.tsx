@@ -3,12 +3,8 @@
 import React, { useState } from 'react';
 
 const TimelineSection = () => {
-  // 1. State for the main 'Wedding Day' events
   const [openEventIndex, setOpenEventIndex] = useState<number | null>(0);
-  // 2. NEW State for the 'Pre-wedding' events
   const [openPreEventIndex, setOpenPreEventIndex] = useState<number | null>(0);
-
-  // ... (events and preEvents data remain the same) ...
 
   const events = [
     {
@@ -16,7 +12,6 @@ const TimelineSection = () => {
       title: 'Ceremony',
       description: 'An intimate private ceremony will be held at Lovers\' Leap - if you don\'t hear from us, you get to skip this and show up at the party at 6:00pm!',
     },
-    // ... rest of events
     {
       time: '6:00 PM',
       title: 'Cocktail Hour',
@@ -46,9 +41,9 @@ const TimelineSection = () => {
 
   const preEvents = [
     {
-      time: '11/5',
+      time: '11/5 - 6:30pm',
       title: 'Rehearsal Dinner',
-      description: 'The \"wedding party\" will gather at RESTAURANT for dinner.',
+      description: 'The \"wedding party\" will gather for dinner.',
     },
     {
       time: '11/5 - TBD',
@@ -57,12 +52,10 @@ const TimelineSection = () => {
     }
   ];
 
-  // Function for the main 'Wedding Day' timeline
   const toggleDrawer = (index: number) => {
     setOpenEventIndex(openEventIndex === index ? null : index);
   };
   
-  // 3. NEW Function for the 'Pre-wedding' timeline
   const togglePreDrawer = (index: number) => {
     setOpenPreEventIndex(openPreEventIndex === index ? null : index);
   };
@@ -70,17 +63,14 @@ const TimelineSection = () => {
   return (
     <section id="timeline" className="">
       <div className="max-w-7xl mx-auto">
-        {/* ... Good to Know Section (unchanged) ... */}
-        
-        {/* Existing Timeline Content */}
         <h2 className="text-4xl font-extrabold text-center mb-12 font-serif text-[#f2df93ff]">What to Expect</h2>
-        <h3 className="text-2xl text-center mb-12 font-serif text-[#f2df93ff]">Pre-wedding</h3>
+        <h3 className="text-2xl text-center mb-6 font-serif text-[#f2df93ff]">Pre-wedding</h3>
         <p className="text-center text-gray-300 max-w-2xl mx-auto mb-12">
           Here is a short list of what we&apos;re planning for days ahead of the wedding:
         </p>
 
         {/* PRE-WEDDING TIMELINE: Uses openPreEventIndex and togglePreDrawer */}
-        <div className="max-w-xl mx-auto">
+        <div className="max-w-xl mx-auto mb-12">
           {preEvents.map((event, index) => (
             <div key={index} className="mb-4">
               <div
