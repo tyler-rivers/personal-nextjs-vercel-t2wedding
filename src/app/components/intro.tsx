@@ -57,7 +57,7 @@ const IntroSection = () => {
           Taylor Nicole Phillips &<br />
           Tyler Andrew Rivers
         </p>
-        <p className="relative text-lg font-light z-2">on November 6<sup>th</sup>, 2025</p>
+        <p className="relative text-lg font-light z-2">on November 6<sup>th</sup>, 2026</p>
         <a href="#rsvp" className="relative text-2xl bg-white text-gray-900 font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-gray-300 transition duration-300 z-2 inline-flex items-center mb-6">Save the Date</a><br/>
         <a href="#registry" className="relative hover:underline transition duration-300 z-2 inline-flex items-center">View Registry</a>
       </div>
