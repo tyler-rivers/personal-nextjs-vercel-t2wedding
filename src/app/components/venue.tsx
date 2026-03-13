@@ -81,7 +81,7 @@ const VenueSection = () => {
                 The Crescent hotel is beautiful, romantic, full of personality, and purportedly <strong>haunted</strong>! The hotel offers regular ghost tours, and has been consistently patrolled by a series of cats named Morris, who make sure to keep the spirits in line.
               </p>
               <p className="leading-relaxed">
-                Please feel free to stay at the Crescent during your trip to Eureka Springs to celebrate with us, but other hotels are available as well. To check on group rates, <a href="tel:855-725-5720">Call the Crescent</a> and inquire about the Rivers/Phillips wedding.
+                Please feel free to stay at the Crescent during your trip to Eureka Springs to celebrate with us, but other hotels are available as well. <a href="tel:855-725-5720">Call the Crescent</a> and be sure to mention the Rivers/Phillips wedding to book.
               </p>
               <div className="pt-4 border-t border-gray-700">
                 <p className="mb-2">
