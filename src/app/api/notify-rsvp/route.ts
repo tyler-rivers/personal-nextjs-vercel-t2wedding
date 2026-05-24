@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 // --- Configuration: Variables are securely pulled from Vercel Environment Variables ---
 const HCAPTCHA_SECRET = process.env.HCAPTCHA_SECRET;
 const SENDER_EMAIL = process.env.SENDER_EMAIL;
-const SENDER_PASSWORD = process.env.SENDER_PASSWORD;
+const SENDER_PASSWORD = process.env.SENDER_PASSWORD; 
 const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL;
 
 // Setup Nodemailer Transporter
@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 });
 
 /**
- * Handles POST requests from the contact form.
+ * Handles POST requests from the RSVP form.
  * The exported function MUST be named POST to handle the POST request method.
  */
 export async function POST(request: Request) {
@@ -30,9 +30,9 @@ export async function POST(request: Request) {
     }
 
     try {
-        const { name, email, captchaToken } = await request.json();
+        const { guestName, rsvpData, captchaToken } = await request.json();
 
-        if (!name || !email || !captchaToken) {
+        if (!guestName || !rsvpData || !captchaToken) {
             return NextResponse.json({ error: 'Missing required fields or captcha token.' }, { status: 400 });
         }
 
@@ -52,29 +52,45 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Failed security check.' }, { status: 401 });
         }
         
-        // --- 2. Send Notification Email ---
+        // --- 2. Format RSVP Data for Email ---
+        const formatRsvpDetails = (rsvpData: any) => {
+            let details = '';
+            Object.entries(rsvpData).forEach(([personName, personData]: [string, any]) => {
+                details += `\n${personName}:\n`;
+                details += `  Attending: ${personData.attending ? 'Yes' : 'No'}\n`;
+                if (personData.firstName) details += `  First Name: ${personData.firstName}\n`;
+                if (personData.lastName) details += `  Last Name: ${personData.lastName}\n`;
+                if (personData.food) details += `  Food: ${personData.food}\n`;
+                if (personData.allergies) details += `  Allergies: ${personData.allergies}\n`;
+                if (personData.email) details += `  Email: ${personData.email}\n`;
+                if (personData.phone) details += `  Phone: ${personData.phone}\n`;
+            });
+            return details;
+        };
+        
+        // --- 3. Send Notification Email ---
         const mailOptions = {
             from: SENDER_EMAIL,
             to: RECIPIENT_EMAIL, 
-            subject: `New Save the Date from T2Wedding Site: ${name}`,
+            subject: `New RSVP Submission from T2Wedding Site: ${guestName}`,
             text: `
-A new save-the-date interest submission has been received!
+A new RSVP submission has been received!
 
-Name: ${name}
-Email: ${email}
+Guest Group: ${guestName}
 Time: ${new Date().toLocaleString()}
 
-They are awaiting the full RSVP form.
+RSVP Details:
+${formatRsvpDetails(rsvpData)}
             `,
         };
 
         await transporter.sendMail(mailOptions);
-        console.log(`Notification sent for ${name}`);
-        return NextResponse.json({ message: 'Submission received and email sent.' }, { status: 200 });
+        console.log(`RSVP notification sent for ${guestName}`);
+        return NextResponse.json({ message: 'RSVP received and email sent.' }, { status: 200 });
 
     } catch (error) {
         // Log the full error to the Vercel console/logs for debugging
-        console.error('Error processing submission or sending email:', error);
+        console.error('Error processing RSVP submission or sending email:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

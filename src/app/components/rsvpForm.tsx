@@ -250,7 +250,7 @@ const FormSection: React.FC<FormSectionProps> = ({
   };
 
   // Update handleSubmit to check for the captcha token
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
       e.preventDefault();
       if (!selectedGuest) return;
       
@@ -265,9 +265,34 @@ const FormSection: React.FC<FormSectionProps> = ({
       }
 
       setCaptchaError(null);
-      // Logic for submitting the RSVP (e.g., API call)
-      console.log("Form Submitted:", rsvpForm[selectedGuest.name], "Captcha Token:", captchaToken);
-      setIsAlertVisible(true);
+      
+      try {
+          // Send RSVP data to the API
+          const response = await fetch('/api/notify-rsvp', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  guestName: selectedGuest.name,
+                  rsvpData: rsvpForm[selectedGuest.name],
+                  captchaToken,
+              }),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+              console.log("RSVP Submitted Successfully:", result);
+              setIsAlertVisible(true);
+          } else {
+              console.error("RSVP submission failed:", result.error);
+              setCaptchaError(result.error || "Failed to submit RSVP. Please try again.");
+          }
+      } catch (error) {
+          console.error("Error submitting RSVP:", error);
+          setCaptchaError("An error occurred while submitting. Please try again.");
+      }
   };
 
   // Handlers for HCaptcha verification and errors
