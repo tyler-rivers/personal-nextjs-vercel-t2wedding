@@ -12,7 +12,7 @@ const IntroSection = () => {
     const NativeImage = window.Image;
     const starImagePromises = [];
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 9; i++) {
       starImagePromises.push(
         new Promise<HTMLImageElement | null>((resolve) => {
           const img = new NativeImage(); // <--- Use the alias here

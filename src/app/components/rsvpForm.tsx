@@ -59,11 +59,9 @@ export const guestsData: Guest[] = [
 ];
 
 export const foodOptions: string[] = [
-  "Chicken",
-  "Beef",
-  "Fish",
-  "Vegetarian",
-  "Vegan"
+  "Vegetable Wellington",
+  "T&T's Vegan Ragu over Buccatini",
+  "Spinach & Onion Quinoa-stuffed Acorn Squash"
 ];
 
 // --- HCaptcha Component Implementation ---

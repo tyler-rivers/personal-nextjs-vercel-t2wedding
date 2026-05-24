@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import FadeInOnScroll from './components/FadeInOnScroll';
 import IntroSection from './components/intro';
-// import FormSection from './components/rsvpForm';
-import SimpleContactForm from './components/saveDateForm';
+import FormSection from './components/rsvpForm';
+// import SimpleContactForm from './components/saveDateForm';
 import VenueSection from './components/venue';
 import TownSection from './components/town';
 import TimelineSection from './components/timeline';
@@ -12,8 +12,8 @@ import RegistrySection from './components/registry';
 import FooterSection from './components/footer';
 
 const Page = () => {
-  // const [selectedGuest, setSelectedGuest] = useState<Guest | null>(null);
-  // const [rsvpForm, setRsvpForm] = useState<RsvpFormType>({});
+  const [selectedGuest, setSelectedGuest] = useState<Guest | null>(null);
+  const [rsvpForm, setRsvpForm] = useState<RsvpFormType>({});
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   return (
@@ -104,7 +104,7 @@ const Page = () => {
       </FadeInOnScroll>
 
       <main className="container mx-auto p-6 md:p-12 space-y-16 z-2">
-        {/* <FadeInOnScroll>
+        <FadeInOnScroll>
           <FormSection
             selectedGuest={selectedGuest}
             setSelectedGuest={setSelectedGuest}
@@ -112,10 +112,10 @@ const Page = () => {
             setRsvpForm={setRsvpForm}
             setIsAlertVisible={setIsAlertVisible}
           />
-        </FadeInOnScroll> */}
-        <FadeInOnScroll>
-          <SimpleContactForm />
         </FadeInOnScroll>
+        {/* <FadeInOnScroll>
+          <SimpleContactForm />
+        </FadeInOnScroll> */}
         <FadeInOnScroll>
           <VenueSection />
         </FadeInOnScroll>
