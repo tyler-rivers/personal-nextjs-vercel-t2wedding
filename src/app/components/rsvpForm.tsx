@@ -2,7 +2,7 @@
 
 import React, { ChangeEvent, FormEvent, useState, useEffect, useRef } from 'react';
 
-interface Guest {
+export interface Guest {
   name: string;
   isCouple?: boolean;
   isFamily?: boolean;
@@ -21,7 +21,7 @@ interface RsvpPerson {
   lastName?: string;
 }
 
-interface RsvpFormType {
+export interface RsvpFormType {
   [guestName: string]: {
     [personName: string]: RsvpPerson;
   };
