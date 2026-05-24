@@ -17,6 +17,24 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+interface RsvpPerson {
+    attending: boolean;
+    food?: string;
+    allergies?: string;
+    email?: string;
+    phone?: string;
+    firstName?: string;
+    lastName?: string;
+}
+
+type RsvpData = Record<string, RsvpPerson>;
+
+interface RsvpRequestBody {
+    guestName: string;
+    rsvpData: RsvpData;
+    captchaToken: string;
+}
+
 /**
  * Handles POST requests from the RSVP form.
  * The exported function MUST be named POST to handle the POST request method.
@@ -30,7 +48,7 @@ export async function POST(request: Request) {
     }
 
     try {
-        const { guestName, rsvpData, captchaToken } = await request.json();
+        const { guestName, rsvpData, captchaToken } = await request.json() as RsvpRequestBody;
 
         if (!guestName || !rsvpData || !captchaToken) {
             return NextResponse.json({ error: 'Missing required fields or captcha token.' }, { status: 400 });
@@ -53,9 +71,9 @@ export async function POST(request: Request) {
         }
         
         // --- 2. Format RSVP Data for Email ---
-        const formatRsvpDetails = (rsvpData: any) => {
+        const formatRsvpDetails = (rsvpData: RsvpData) => {
             let details = '';
-            Object.entries(rsvpData).forEach(([personName, personData]: [string, any]) => {
+            Object.entries(rsvpData).forEach(([personName, personData]) => {
                 details += `\n${personName}:\n`;
                 details += `  Attending: ${personData.attending ? 'Yes' : 'No'}\n`;
                 if (personData.firstName) details += `  First Name: ${personData.firstName}\n`;
