@@ -12,7 +12,7 @@ import RegistrySection from './components/registry';
 import FooterSection from './components/footer';
 
 const Page = () => {
-  const [selectedGuest, setSelectedGuest] = useState<Guest | null>(null);
+  const [selectedGuest, setSelectedGuest] = useState(null);
   const [rsvpForm, setRsvpForm] = useState<RsvpFormType>({});
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
