@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import FadeInOnScroll from './components/FadeInOnScroll';
 import IntroSection from './components/intro';
 import FormSection from './components/rsvpForm';
+import type { Guest, RsvpFormType } from './components/rsvpForm';
 // import SimpleContactForm from './components/saveDateForm';
 import VenueSection from './components/venue';
 import TownSection from './components/town';
@@ -12,7 +13,7 @@ import RegistrySection from './components/registry';
 import FooterSection from './components/footer';
 
 const Page = () => {
-  const [selectedGuest, setSelectedGuest] = useState(null);
+  const [selectedGuest, setSelectedGuest] = useState<Guest | null>(null);
   const [rsvpForm, setRsvpForm] = useState<RsvpFormType>({});
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
