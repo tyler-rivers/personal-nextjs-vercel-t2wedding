@@ -40,7 +40,7 @@ export const guestsData: Guest[] = [
   { "name": "Corina Mendoza", "isCouple": false, "isFamily": false, "isSingle": false, "plusOneAllowed": true, "attending": ["Corina Mendoza"] },
   { "name": "John Mueller & Christina Gullo", "isCouple": true, "isFamily": false, "isSingle": false, "plusOneAllowed": false, "attending": ["John Mueller", "Christina Gullo"] },
   { "name": "Ronald Novotny & Rene DeShazer", "isCouple": true, "isFamily": false, "isSingle": false, "plusOneAllowed": false, "attending": ["Ronald Novotny", "Rene DeShazer"] },
-  { "name": "Susanne Novotny & Ryan Seitz", "isCouple": true, "isFamily": false, "isSingle": false, "plusOneAllowed": false, "attending": ["Susanne Novotny", "Ryan Seitz"] },
+  { "name": "Susanne Seitz & Ryan Seitz", "isCouple": true, "isFamily": false, "isSingle": false, "plusOneAllowed": false, "attending": ["Susanne Novotny", "Ryan Seitz"] },
   { "name": "Sean O'Kane", "isCouple": false, "isFamily": false, "isSingle": true, "plusOneAllowed": false, "attending": ["Sean O'Kane"] },
   { "name": "The Phillips Family", "isCouple": false, "isFamily": true, "isSingle": false, "plusOneAllowed": false, "attending": ["Scot Phillips", "Patricia Phillips", "Mark Phillips"] },
   { "name": "Alice Phoenix", "isCouple": false, "isFamily": false, "isSingle": true, "plusOneAllowed": true, "attending": ["Alice Phoenix"] },
@@ -55,7 +55,7 @@ export const guestsData: Guest[] = [
   { "name": "Tiffany & Ian Hadden", "isCouple": true, "isFamily": false, "isSingle": false, "plusOneAllowed": false, "attending": ["Tiffany Hadden", "Ian Hadden"] },
   { "name": "Patrick Mueller", "isCouple": false, "isFamily": false, "isSingle": true, "plusOneAllowed": false, "attending": ["Patrick Mueller"] },
   { "name": "Shannon & Justin Bassett", "isCouple": true, "isFamily": false, "isSingle": false, "plusOneAllowed": false, "attending": ["Shannon Bassett", "Justin Bassett"] },
-  { "name": "Haley Vincent", "isCouple": false, "isFamily": false, "isSingle": true, "plusOneAllowed": true, "attending": ["Haley Vincent"] }
+  { "name": "Haley Vincent & Zain Blackwell", "isCouple": false, "isFamily": false, "isSingle": true, "plusOneAllowed": false, "attending": ["Haley Vincent", "Zain Blackwell"] }
 ];
 
 export const foodOptions: string[] = [
