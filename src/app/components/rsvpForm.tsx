@@ -64,94 +64,100 @@ export const foodOptions: string[] = [
   "Spinach & Onion Quinoa-stuffed Acorn Squash"
 ];
 
+export const foodDescriptions: Record<string, string> = {
+  "Vegetable Wellington": "Vegetable-stuffed portabella cap wrapped in puff pastry and topped with tomato sauce",
+  "T&T's Vegan Ragu over Buccatini": "Impossible ground meat and button mushroom tomato sauce",
+  "Spinach & Onion Quinoa-stuffed Acorn Squash": "Served with wild rice and green bean medley"
+};
+
 // --- HCaptcha Component Implementation ---
 
 const HCAPTCHA_SITEKEY = "e704814c-d75c-4cfe-93ca-135a3380318c"; // IMPORTANT: Replace with your actual site key
 const HCAPTCHA_SCRIPT_URL = "https://js.hcaptcha.com/1/api.js";
 
 interface HCaptchaProps {
-    onVerify: (token: string) => void;
-    onError: () => void;
+  onVerify: (token: string) => void;
+  onError: () => void;
 }
 
 // Define a type for the hCaptcha API methods we use
 interface HCaptchaApi {
-    render: (container: HTMLElement, options: object) => string | number;
-    reset: (widgetId?: string | number) => void;
-    remove: (widgetId: string | number) => void;
+  render: (container: HTMLElement, options: object) => string | number;
+  reset: (widgetId?: string | number) => void;
+  remove: (widgetId: string | number) => void;
 }
 
 // Extend Window interface to include hcaptcha global object safely
 declare global {
-    interface Window {
-        hcaptcha: HCaptchaApi;
-    }
+  interface Window {
+    hcaptcha: HCaptchaApi;
+  }
 }
 
 const HCaptchaComponent: React.FC<HCaptchaProps> = ({ onVerify, onError }) => {
-    const captchaRef = useRef<HTMLDivElement>(null);
-    // Ref to store the ID returned by hcaptcha.render()
-    const widgetIdRef = useRef<string | number | null>(null);
+  const captchaRef = useRef<HTMLDivElement>(null);
+  // Ref to store the ID returned by hcaptcha.render()
+  const widgetIdRef = useRef<string | number | null>(null);
 
-    // Effect to handle script loading and widget initialization
-    useEffect(() => {
-        let script: HTMLScriptElement | null = null;
-        
-        const initializeCaptcha = () => {
-            // Check for existence and then use the defined type
-            const hcaptchaApi = window.hcaptcha;
+  // Effect to handle script loading and widget initialization
+  useEffect(() => {
+    let script: HTMLScriptElement | null = null;
 
-            if (captchaRef.current && hcaptchaApi) {
-                try {
-                    widgetIdRef.current = hcaptchaApi.render(captchaRef.current, {
-                        sitekey: HCAPTCHA_SITEKEY,
-                        'callback': onVerify,
-                        'error-callback': onError,
-                    });
-                } catch (e) {
-                    console.error("HCaptcha render failed:", e);
-                    onError();
-                }
-            }
-        };
+    const initializeCaptcha = () => {
+      // Check for existence and then use the defined type
+      const hcaptchaApi = window.hcaptcha;
 
-        // If the script isn't loaded, load it
-        if (typeof window.hcaptcha === 'undefined') {
-            script = document.createElement('script');
-            script.src = HCAPTCHA_SCRIPT_URL;
-            script.async = true;
-            script.defer = true;
-            script.onload = initializeCaptcha;
-            document.head.appendChild(script);
-        } else {
-            // If it's already loaded (e.g., component remounts), initialize immediately
-            initializeCaptcha();
+      if (captchaRef.current && hcaptchaApi) {
+        try {
+          widgetIdRef.current = hcaptchaApi.render(captchaRef.current, {
+            sitekey: HCAPTCHA_SITEKEY,
+            'callback': onVerify,
+            'error-callback': onError,
+          });
+        } catch (e) {
+          console.error("HCaptcha render failed:", e);
+          onError();
         }
+      }
+    };
 
-        // Cleanup function for hCaptcha widget and script
-        return () => {
-            const hcaptchaApi = window.hcaptcha;
+    // If the script isn't loaded, load it
+    if (typeof window.hcaptcha === 'undefined') {
+      script = document.createElement('script');
+      script.src = HCAPTCHA_SCRIPT_URL;
+      script.async = true;
+      script.defer = true;
+      script.onload = initializeCaptcha;
+      document.head.appendChild(script);
+    } else {
+      // If it's already loaded (e.g., component remounts), initialize immediately
+      initializeCaptcha();
+    }
 
-            if (widgetIdRef.current !== null && hcaptchaApi && hcaptchaApi.remove) {
-                try {
-                    hcaptchaApi.remove(widgetIdRef.current);
-                    widgetIdRef.current = null; // Clear the ref after removal
-                } catch (e) {
-                    console.error("Failed to remove hCaptcha widget:", e);
-                }
-            }
-            // Optional: Script removal logic (omitted for simplicity in this context)
-        };
+    // Cleanup function for hCaptcha widget and script
+    return () => {
+      const hcaptchaApi = window.hcaptcha;
+
+      if (widgetIdRef.current !== null && hcaptchaApi && hcaptchaApi.remove) {
+        try {
+          hcaptchaApi.remove(widgetIdRef.current);
+          widgetIdRef.current = null; // Clear the ref after removal
+        } catch (e) {
+          console.error("Failed to remove hCaptcha widget:", e);
+        }
+      }
+      // Optional: Script removal logic (omitted for simplicity in this context)
+    };
 
     // Dependencies are empty because we only want to run this once on mount/unmount
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+  }, []);
 
-    return (
-        <div ref={captchaRef} className="flex justify-center">
-            {/* HCaptcha will render here */}
-        </div>
-    );
+  return (
+    <div ref={captchaRef} className="flex justify-center">
+      {/* HCaptcha will render here */}
+    </div>
+  );
 };
 
 // --- FormSection Component ---
@@ -160,7 +166,6 @@ interface FormSectionProps {
   selectedGuest: Guest | null;
   setSelectedGuest: (guest: Guest | null) => void;
   rsvpForm: RsvpFormType;
-  // 🌟 FIX 1: Use React.Dispatch<React.SetStateAction<T>> for the state setter prop
   setRsvpForm: React.Dispatch<React.SetStateAction<RsvpFormType>>;
   setIsAlertVisible: (visible: boolean) => void;
 }
@@ -181,7 +186,7 @@ const FormSection: React.FC<FormSectionProps> = ({
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, person: string, field: keyof RsvpPerson) => {
     const { value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
-    
+
     // 🌟 FIX 2: Guard clause instead of unsafe non-null assertion on optional chain
     if (!selectedGuest?.name) return;
 
@@ -205,7 +210,7 @@ const FormSection: React.FC<FormSectionProps> = ({
     const guestName = e.target.value;
     const guest = guestsData.find(g => g.name === guestName);
     setSelectedGuest(guest || null);
-    
+
     // Reset captcha and errors when the guest group changes
     setCaptchaToken(null);
     setCaptchaError(null);
@@ -251,48 +256,48 @@ const FormSection: React.FC<FormSectionProps> = ({
 
   // Update handleSubmit to check for the captcha token
   const handleSubmit = async (e: FormEvent) => {
-      e.preventDefault();
-      if (!selectedGuest) return;
-      
-      if (!captchaToken) {
-          setCaptchaError("Please complete the security check before submitting.");
-          
-          const hcaptchaApi = window.hcaptcha;
-          if (hcaptchaApi && hcaptchaApi.reset) {
-             hcaptchaApi.reset();
-          }
-          return;
+    e.preventDefault();
+    if (!selectedGuest) return;
+
+    if (!captchaToken) {
+      setCaptchaError("Please complete the security check before submitting.");
+
+      const hcaptchaApi = window.hcaptcha;
+      if (hcaptchaApi && hcaptchaApi.reset) {
+        hcaptchaApi.reset();
       }
+      return;
+    }
 
-      setCaptchaError(null);
-      
-      try {
-          // Send RSVP data to the API
-          const response = await fetch('/api/notify-rsvp', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                  guestName: selectedGuest.name,
-                  rsvpData: rsvpForm[selectedGuest.name],
-                  captchaToken,
-              }),
-          });
+    setCaptchaError(null);
 
-          const result = await response.json();
+    try {
+      // Send RSVP data to the API
+      const response = await fetch('/api/notify-rsvp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          guestName: selectedGuest.name,
+          rsvpData: rsvpForm[selectedGuest.name],
+          captchaToken,
+        }),
+      });
 
-          if (response.ok) {
-              console.log("RSVP Submitted Successfully:", result);
-              setIsAlertVisible(true);
-          } else {
-              console.error("RSVP submission failed:", result.error);
-              setCaptchaError(result.error || "Failed to submit RSVP. Please try again.");
-          }
-      } catch (error) {
-          console.error("Error submitting RSVP:", error);
-          setCaptchaError("An error occurred while submitting. Please try again.");
+      const result = await response.json();
+
+      if (response.ok) {
+        console.log("RSVP Submitted Successfully:", result);
+        setIsAlertVisible(true);
+      } else {
+        console.error("RSVP submission failed:", result.error);
+        setCaptchaError(result.error || "Failed to submit RSVP. Please try again.");
       }
+    } catch (error) {
+      console.error("Error submitting RSVP:", error);
+      setCaptchaError("An error occurred while submitting. Please try again.");
+    }
   };
 
   // Handlers for HCaptcha verification and errors
@@ -349,7 +354,7 @@ const FormSection: React.FC<FormSectionProps> = ({
                     type="checkbox"
                     id="plusOne"
                     name="plusOne"
-                    checked={rsvpForm[selectedGuest.name]?.['Plus One']?.attending || false} 
+                    checked={rsvpForm[selectedGuest.name]?.['Plus One']?.attending || false}
                     onChange={handlePlusOneChange}
                     className="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500"
                   />
@@ -396,6 +401,11 @@ const FormSection: React.FC<FormSectionProps> = ({
                             <option className="bg-gray-800 text-[#f7fbfc]" key={foodIndex} value={food}>{food}</option>
                           ))}
                         </select>
+                        {rsvpForm[selectedGuest.name]?.[person]?.food && (
+                          <p className="text-xs text-gray-400 mt-2 italic">
+                            {foodDescriptions[rsvpForm[selectedGuest.name]?.[person]?.food]}
+                          </p>
+                        )}
                       </div>
                       <div>
                         <label htmlFor={`${person}-allergies`} className="block text-xs font-medium text-gray-400 mb-1">Allergies</label>
@@ -440,18 +450,18 @@ const FormSection: React.FC<FormSectionProps> = ({
             <div className="space-y-4">
               <HCaptchaComponent onVerify={handleVerify} onError={handleError} />
               {captchaError && (
-                  <p className="text-sm font-medium text-red-500 text-center">{captchaError}</p>
+                <p className="text-sm font-medium text-red-500 text-center">{captchaError}</p>
               )}
               {!captchaToken && !captchaError && (
-                  <p className="text-sm text-gray-500 text-center">Please complete the security check above.</p>
+                <p className="text-sm text-gray-500 text-center">Please complete the security check above.</p>
               )}
               {captchaToken && (
-                  <p className="text-sm text-green-500 text-center font-semibold">Security check complete!</p>
+                <p className="text-sm text-green-500 text-center font-semibold">Security check complete!</p>
               )}
             </div>
 
             <button type="submit" className={`w-full font-semibold py-3 px-4 rounded-md transition duration-300 ${captchaToken ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-gray-700 text-gray-400 cursor-not-allowed'}`} disabled={!captchaToken}>
-                Submit RSVP
+              Submit RSVP
             </button>
           </div>
         )}
