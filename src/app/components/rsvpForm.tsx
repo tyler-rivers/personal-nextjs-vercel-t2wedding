@@ -58,7 +58,8 @@ export const guestsData: Guest[] = [
   { "name": "Haley Vincent & Zain Blackwell", "isCouple": true, "isFamily": false, "isSingle": true, "plusOneAllowed": false, "attending": ["Haley Vincent", "Zain Blackwell"] },
   { "name": "Sue Gregory", "isCouple": false, "isFamily": false, "isSingle": true, "plusOneAllowed": true, "attending": ["Sue Gregory"] },
   { "name": "Caleb Aikens & Kellie Hansen", "isCouple": true, "isFamily": false, "isSingle": false, "plusOneAllowed": false, "attending": ["Caleb Aikens", "Kellie Hansen"] },
-  { "name": "Jackie & Amy Zygmunt", "isCouple": true, "isFamily": false, "isSingle": false, "plusOneAllowed": false, "attending": ["Jackie Zygmunt", "Amy Zygmunt"] }
+  { "name": "Jackie & Amy Zygmunt", "isCouple": true, "isFamily": false, "isSingle": false, "plusOneAllowed": false, "attending": ["Jackie Zygmunt", "Amy Zygmunt"] },
+  { "name": "Michael & Sam Briscoe", "isCouple": true, "isFamily": false, "isSingle": false, "plusOneAllowed": false, "attending": ["Michael Briscoe", "Sam Briscoe"] }
 ];
 
 export const foodOptions: string[] = [
