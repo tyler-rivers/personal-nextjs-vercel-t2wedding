@@ -12,6 +12,7 @@ const getStarImagePath = (index: number): string => {
 const TimelineSection = () => {
   const [openEventIndex, setOpenEventIndex] = useState<number | null>(0);
   const [openPreEventIndex, setOpenPreEventIndex] = useState<number | null>(0);
+  const [openPostEventIndex, setOpenPostEventIndex] = useState<number | null>(0);
 
   const events = [
     {
@@ -48,15 +49,47 @@ const TimelineSection = () => {
 
   const preEvents = [
     {
-      time: '11/5 - 6:30pm',
+      time: '11/5 - 4pm',
+      title: 'Rehearsal at Lover\'s Leap',
+      description: 'The \"wedding party\" will gather for a rehearsal; you\'ll have gotten an email if you\'re invited.',
+    },
+    {
+      time: '11/5 - 5pm',
       title: 'Rehearsal Dinner',
-      description: 'The \"wedding party\" will gather for dinner.',
+      description: (
+        <>
+          The &quot;wedding party&quot; will gather for dinner after the rehearsal at{' '}
+          <a href="https://localflavorcafe.net/" target="_blank" rel="noopener noreferrer" className="text-[#f2df93ff] underline hover:text-indigo-400 transition">
+            The Local Flavor
+          </a>.
+        </>
+      ),
+    },
+    {
+      time: '11/5 - 6:30pm',
+      title: 'Drinks at the Crescent Hotel\'s Rooftop Bar',
+      description: 'Join us for drinks and a view of the Ozarks at the Crescent Hotel\'s rooftop bar. This is a great time to mingle and get to know other guests!',
     },
     {
       time: '11/5 - TBD',
-      title: 'Crescent Ghost Tour',
-      description: 'In Eureka Springs early for some R&R? Come get spooked with us at the Crescent Hotel at 8pm for their famous ghost tour!',
+      title: 'Ghost Tour at the Crescent Hotel',
+      description: (
+        <>
+          We aren&apos;t organizing this one, but you&apos;re welcome to set up a Ghost Tour at the Crescent Hotel. It&apos;s a fun way to explore the hotel and learn about its history.{' '}
+          <a href="https://www.reserveeureka.com/attractions/crescentghost" target="_blank" rel="noopener noreferrer" className="text-[#f2df93ff] underline hover:text-indigo-400 transition">
+            Book a ghost tour here.
+          </a>
+        </>
+      ),
     }
+  ];
+
+  const postEvents = [
+    {
+      time: '11/7 - TBD',
+      title: 'Brunch',
+      description: 'Details to come!',
+    },
   ];
 
   const toggleDrawer = (index: number) => {
@@ -65,6 +98,10 @@ const TimelineSection = () => {
   
   const togglePreDrawer = (index: number) => {
     setOpenPreEventIndex(openPreEventIndex === index ? null : index);
+  };
+
+  const togglePostDrawer = (index: number) => {
+    setOpenPostEventIndex(openPostEventIndex === index ? null : index);
   };
 
   return (
@@ -113,7 +150,7 @@ const TimelineSection = () => {
         </p>
 
         {/* WEDDING DAY TIMELINE: Uses openEventIndex and toggleDrawer (Original) */}
-        <div className="max-w-xl mx-auto">
+        <div className="max-w-xl mx-auto mb-12">
           {events.map((event, index) => (
             <div key={index} className="mb-4">
               <div
@@ -134,6 +171,39 @@ const TimelineSection = () => {
               </div>
               <div
                 className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${openEventIndex === index ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+              >
+                <div className="overflow-hidden bg-gray-900 rounded-b-lg text-gray-300 p-4 pt-0">
+                  <p className="mt-4">{event.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <h3 className="text-2xl text-center mb-12 font-serif text-[#f2df93ff]">Day After</h3>
+
+        {/* DAY AFTER TIMELINE: Uses openPostEventIndex and togglePostDrawer */}
+        <div className="max-w-xl mx-auto">
+          {postEvents.map((event, index) => (
+            <div key={index} className="mb-4">
+              <div
+                className="flex items-center space-x-4 cursor-pointer p-4 bg-gray-800 border border-gray-700 rounded-lg shadow-md hover:bg-gray-700 transition duration-300"
+                onClick={() => togglePostDrawer(index)}
+              >
+                <span className="text-xl font-bold text-[#f2df93ff] flex-shrink-0">{event.time}</span>
+                <img
+                  src={getStarImagePath(index)}
+                  alt="A small star"
+                  style={{ objectFit: 'cover' }}
+                  className="w-3 h-auto"
+                />
+                <h3 className="text-xl font-semibold text-gray-200 flex-grow">{event.title}</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6 transform transition-transform duration-300 text-white ${openPostEventIndex === index ? 'rotate-180' : ''}`}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+              </div>
+              <div
+                className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${openPostEventIndex === index ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
               >
                 <div className="overflow-hidden bg-gray-900 rounded-b-lg text-gray-300 p-4 pt-0">
                   <p className="mt-4">{event.description}</p>
