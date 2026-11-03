@@ -23,6 +23,10 @@ const RegistrySection = () => (
         </a>
       ))}
     </div>
+    <p className="max-w-md mx-auto mt-6 text-sm opacity-80">
+      Having trouble using the Venmo link? Try looking us up by account name, we are using Tyler&apos;s account for gifts.
+    </p>
+    <p className="mt-2 text-sm font-semibold">@Tyler-A-Rivers</p>
   </section>
 );
 
