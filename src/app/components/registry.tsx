@@ -27,6 +27,7 @@ const RegistrySection = () => (
       Having trouble using the Venmo link? Try looking us up by account name, we are using Tyler&apos;s account for gifts.
     </p>
     <p className="mt-2 text-sm font-semibold">@Tyler-A-Rivers</p>
+    <p className="max-w-md mx-auto mt-6 text-sm opacity-80">Phone number last 4 digits: 3384</p>
   </section>
 );
 
